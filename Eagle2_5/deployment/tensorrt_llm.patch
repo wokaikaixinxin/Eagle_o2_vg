@@ -1,0 +1,147 @@
+diff --git a/cpp/CMakeLists.txt b/cpp/CMakeLists.txt
+index 85e070fc9..b3f91a8fe 100644
+--- a/cpp/CMakeLists.txt
++++ b/cpp/CMakeLists.txt
+@@ -139,8 +139,8 @@ set(CURAND_LIB CUDA::curand)
+ set(CUDA_DRV_LIB CUDA::cuda_driver)
+ set(CUDA_NVML_LIB CUDA::nvml)
+ set(CUDA_RT_LIB CUDA::cudart_static)
+-set(NVRTC_LIB CUDA::nvrtc_static)
+-set(NVRTC_BUILTINS_LIB CUDA::nvrtc_builtins_static)
++set(NVRTC_LIB CUDA::nvrtc)
++set(NVRTC_BUILTINS_LIB CUDA::nvrtc_builtins)
+ set(CMAKE_CUDA_RUNTIME_LIBRARY Static)
+ 
+ resolve_dirs(CUDAToolkit_INCLUDE_DIRS "${CUDAToolkit_INCLUDE_DIRS}")
+diff --git a/cpp/cmake/modules/FindTensorRT.cmake b/cpp/cmake/modules/FindTensorRT.cmake
+index c6879c71e..e406a9732 100644
+--- a/cpp/cmake/modules/FindTensorRT.cmake
++++ b/cpp/cmake/modules/FindTensorRT.cmake
+@@ -16,12 +16,12 @@
+ #
+ 
+ # TensorRT install path in docker image
+-set(TensorRT_WELL_KNOWN_ROOT /usr/local/tensorrt)
++set(TensorRT_WELL_KNOWN_ROOT /usr/include/x86_64-linux-gnu)
+ 
+ find_path(
+   TensorRT_INCLUDE_DIR
+   NAMES NvInfer.h
+-  PATHS ${TensorRT_WELL_KNOWN_ROOT}/include)
++  PATHS ${TensorRT_WELL_KNOWN_ROOT})
+ 
+ function(_tensorrt_get_version)
+   unset(TensorRT_VERSION_STRING PARENT_SCOPE)
+@@ -44,8 +44,8 @@ function(_tensorrt_get_version)
+       PARENT_SCOPE)
+ endfunction(_tensorrt_get_version)
+ 
+-_tensorrt_get_version()
+-
++#_tensorrt_get_version()
++set(TensorRT_VERSION_STRING 10.11.0.33)
+ macro(_tensorrt_find_dll VAR)
+   find_file(
+     ${VAR}
+@@ -75,7 +75,7 @@ if(TensorRT_FIND_COMPONENTS)
+     find_path(
+       TensorRT_OnnxParser_INCLUDE_DIR
+       NAMES NvOnnxParser.h
+-      PATHS ${TensorRT_WELL_KNOWN_ROOT}/include)
++      PATHS ${TensorRT_WELL_KNOWN_ROOT})
+ 
+     find_library(
+       TensorRT_OnnxParser_LIBRARY
+@@ -98,7 +98,7 @@ if(TensorRT_FIND_COMPONENTS)
+     find_path(
+       TensorRT_Plugin_INCLUDE_DIR
+       NAMES NvInferPlugin.h
+-      PATHS ${TensorRT_WELL_KNOWN_ROOT}/include)
++      PATHS ${TensorRT_WELL_KNOWN_ROOT})
+ 
+     find_library(
+       TensorRT_Plugin_LIBRARY
+diff --git a/cpp/tensorrt_llm/executor/cache_transmission/ucx_utils/CMakeLists.txt b/cpp/tensorrt_llm/executor/cache_transmission/ucx_utils/CMakeLists.txt
+index cd2095dd8..50f984e77 100644
+--- a/cpp/tensorrt_llm/executor/cache_transmission/ucx_utils/CMakeLists.txt
++++ b/cpp/tensorrt_llm/executor/cache_transmission/ucx_utils/CMakeLists.txt
+@@ -5,7 +5,7 @@ if(ENABLE_UCX)
+   find_package(ucxx REQUIRED)
+ 
+   add_library(${UCX_WRAPPER_TARGET} SHARED connection.cpp
+-                                           ucxCacheCommunicator.cpp)
++                                         ucxCacheCommunicator.cpp)
+   set_target_properties(
+     ${UCX_WRAPPER_TARGET}
+     PROPERTIES CXX_STANDARD "17" CXX_STANDARD_REQUIRED "YES"
+@@ -16,8 +16,8 @@ if(ENABLE_UCX)
+   set(TOP_LEVEL_DIR "${PROJECT_SOURCE_DIR}/..")
+   target_compile_definitions(${UCX_WRAPPER_TARGET}
+                              PUBLIC TOP_LEVEL_DIR="${TOP_LEVEL_DIR}")
+-  target_link_libraries(${UCX_WRAPPER_TARGET}
+-                        PRIVATE $<LINK_LIBRARY:WHOLE_ARCHIVE,ucxx::ucxx>)
++		     #target_link_libraries(${UCX_WRAPPER_TARGET}
++		     #   PRIVATE $<LINK_LIBRARY:WHOLE_ARCHIVE,ucxx::ucxx>)
+   target_link_libraries(${UCX_WRAPPER_TARGET} PUBLIC ucxx::ucxx ucx::ucs)
+   target_link_libraries(${UCX_WRAPPER_TARGET} PUBLIC ${CUDA_RT_LIB})
+ endif()
+diff --git a/requirements.txt b/requirements.txt
+index 88c965492..7dd0d12a9 100644
+--- a/requirements.txt
++++ b/requirements.txt
+@@ -7,8 +7,8 @@ diffusers>=0.27.0
+ lark
+ mpi4py
+ numpy<2
+-onnx>=1.12.0
+-onnx_graphsurgeon>=0.5.2
++#onnx>=1.12.0
++#onnx_graphsurgeon>=0.5.2
+ openai
+ polygraphy
+ psutil
+@@ -20,17 +20,17 @@ pandas
+ h5py==3.12.1
+ StrEnum
+ sentencepiece>=0.1.99
+-tensorrt~=10.10.0
++#tensorrt~=10.10.0
+ # https://docs.nvidia.com/deeplearning/frameworks/pytorch-release-notes/rel-25-04.html#rel-25-04 uses 2.7.0a0.
+-torch>=2.7.0a0,<=2.7.0
+-torchvision
++#torch>=2.7.0a0,<=2.7.0
++#torchvision
+ nvidia-modelopt[torch]~=0.29.0
+ nvidia-nccl-cu12
+ nvidia-cuda-nvrtc-cu12
+ transformers~=4.51.1
+ pydantic>=2.9.1
+ pillow==10.3.0
+-wheel<=0.45.1
++#wheel<=0.45.1
+ optimum
+ # evaluate needs datasets>=2.0.0 which triggers datasets>3.1.0 which is not stable: https://github.com/huggingface/datasets/issues/7467
+ datasets==3.1.0
+@@ -44,7 +44,7 @@ fastapi==0.115.4
+ uvicorn
+ setuptools<80
+ ordered-set
+-peft
++#peft
+ einops
+ flashinfer-python~=0.2.3
+ opencv-python-headless
+diff --git a/tensorrt_llm/models/qwen/config.py b/tensorrt_llm/models/qwen/config.py
+index 5ab364893..1439600cb 100644
+--- a/tensorrt_llm/models/qwen/config.py
++++ b/tensorrt_llm/models/qwen/config.py
+@@ -87,7 +87,8 @@ class QWenConfig(PretrainedConfig):
+                 hf_config_dir, trust_remote_code=trust_remote_code)
+         if hasattr(hf_config, 'llm_config'):
+             hf_config = hf_config.llm_config
+-
++        if hasattr(hf_config, 'text_config'):
++            hf_config = hf_config.text_config
+         qwen_type = hf_config.model_type
+         # lmms llava onevision qwen
+         if qwen_type == 'llava':

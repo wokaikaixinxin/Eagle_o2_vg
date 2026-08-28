@@ -1,0 +1,247 @@
+<svg width="1200" height="900" viewBox="0 0 1200 900" xmlns="http://www.w3.org/2000/svg" style="font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; background-color: white;">
+  
+  <!-- Definitions for Gradients and Markers -->
+  <defs>
+    <filter id="shadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="2" stdDeviation="3" flood-color="#000000" flood-opacity="0.1"/>
+    </filter>
+    <marker id="arrowhead-blue" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#2c5282" />
+    </marker>
+    <marker id="arrowhead-orange" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#ed8936" />
+    </marker>
+    <!-- Clip path for the bottom of the buffer container -->
+    <clipPath id="clip-bottom-buffer">
+        <rect x="0" y="125" width="450" height="55" rx="0" ry="0" />
+    </clipPath>
+  </defs>
+
+  <!-- Background Container -->
+  <rect x="20" y="20" width="1160" height="860" rx="12" fill="white" stroke="#e2e8f0" stroke-width="1" filter="url(#shadow)" />
+
+  <!-- Header -->
+  <text x="600" y="70" text-anchor="middle" font-size="28" font-weight="bold" fill="#2c5282">Stream Packing (Online Packing)</text>
+  <text x="600" y="100" text-anchor="middle" font-size="16" fill="#718096">Efficient LLM Training with Variable-Length Sequences &amp; Perfect Resume</text>
+
+  <!-- ================= LEFT COLUMN: INPUT STREAM ================= -->
+  <!-- 修复：增加了高度，防止文字重叠 -->
+  <g transform="translate(60, 150)">
+    <rect x="0" y="0" width="220" height="320" rx="8" fill="#f7fafc" stroke="#cbd5e0" />
+    <text x="20" y="30" font-weight="bold" fill="#2c5282" font-size="16">Input Stream</text>
+    <line x1="20" y1="40" x2="200" y2="40" stroke="#cbd5e0" stroke-width="2" />
+
+    <!-- Sample Blocks -->
+    <g transform="translate(20, 60)">
+      <rect x="0" y="0" width="120" height="28" rx="4" fill="#2c5282" />
+      <text x="60" y="19" text-anchor="middle" fill="white" font-size="11" font-weight="bold">Sample A (45)</text>
+
+      <rect x="0" y="40" width="80" height="28" rx="4" fill="#38b2ac" />
+      <text x="40" y="59" text-anchor="middle" fill="white" font-size="11" font-weight="bold">Sample B (32)</text>
+
+      <rect x="0" y="80" width="160" height="28" rx="4" fill="#4299e1" />
+      <text x="80" y="99" text-anchor="middle" fill="white" font-size="11" font-weight="bold">Sample C (78)</text>
+
+      <rect x="0" y="120" width="40" height="28" rx="4" fill="#38b2ac" />
+      <text x="20" y="139" text-anchor="middle" fill="white" font-size="11" font-weight="bold">D</text>
+
+      <rect x="0" y="160" width="170" height="28" rx="4" fill="#2c5282" />
+      <text x="85" y="179" text-anchor="middle" fill="white" font-size="11" font-weight="bold">Sample E (92)</text>
+    </g>
+
+    <!-- 修复：文字下移，避免与 Sample E 重叠 -->
+    <text x="20" y="280" font-size="11" fill="#718096" font-style="italic">Variable length sequences</text>
+    <text x="20" y="295" font-size="11" fill="#718096" font-style="italic">Max: 16384 tokens/sample</text>
+  </g>
+
+  <!-- Arrow: Input to Worker -->
+  <line x1="280" y1="310" x2="330" y2="310" stroke="#cbd5e0" stroke-width="3" marker-end="url(#arrowhead-blue)" />
+
+
+  <!-- ================= CENTER COLUMN: WORKER LOGIC ================= -->
+  <g transform="translate(340, 150)">
+    <!-- Main Worker Box -->
+    <rect x="0" y="0" width="500" height="440" rx="12" fill="white" stroke="#2c5282" stroke-width="2" />
+    
+    <!-- Label Badge -->
+    <rect x="20" y="-14" width="240" height="28" fill="white" />
+    <text x="30" y="5" font-weight="bold" fill="#2c5282" font-size="18">Streaming Packing Worker</text>
+
+    <!-- 1. BATCH CONSTRUCTION AREA -->
+    <g transform="translate(25, 50)">
+      
+      <!-- Best Fit Bubble -->
+      <g transform="translate(260, -25)">
+        <rect x="0" y="0" width="140" height="40" rx="6" fill="#ed8936" filter="url(#shadow)" />
+        <text x="70" y="16" text-anchor="middle" fill="white" font-size="11" font-weight="bold">Best-Fit Strategy</text>
+        <text x="70" y="30" text-anchor="middle" fill="white" font-size="10">Scan buffer for fit</text>
+        <!-- Triangle pointing down -->
+        <polygon points="64,40 76,40 70,46" fill="#ed8936" />
+      </g>
+
+      <rect x="0" y="20" width="450" height="90" rx="8" fill="#edf2f7" />
+      <text x="20" y="45" font-size="13" font-weight="bold" fill="#2d3748">Current Batch Construction</text>
+      
+      <!-- The Batch Track -->
+      <g transform="translate(20, 55)">
+        <rect x="0" y="0" width="410" height="36" rx="4" fill="#e2e8f0" stroke="#a0aec0" stroke-width="1" stroke-dasharray="4,2" />
+        
+        <!-- Packed Blocks -->
+        <rect x="1" y="1" width="120" height="34" fill="#2c5282" />
+        <rect x="122" y="1" width="80" height="34" fill="#38b2ac" />
+        <rect x="203" y="1" width="100" height="34" fill="#4299e1" />
+        
+        <!-- Gap Label (Centered in the gap) -->
+        <text x="355" y="22" text-anchor="middle" fill="#718096" font-size="11" font-weight="bold">Gap</text>
+        
+        <!-- Max Tokens Label (Moved outside to right to avoid clutter) -->
+        <text x="410" y="-5" text-anchor="end" fill="#718096" font-size="10">max_seq_len</text>
+        <line x1="410" y1="0" x2="410" y2="40" stroke="#a0aec0" stroke-width="1" stroke-dasharray="2,2" />
+      </g>
+    </g>
+
+    <!-- 2. INCOMING SAMPLE DECISION -->
+    <g transform="translate(45, 170)">
+      <text x="0" y="18" font-size="13" font-weight="bold" fill="#718096">New Sample:</text>
+      <rect x="90" y="0" width="100" height="28" rx="4" fill="#2c5282" />
+      <text x="140" y="19" text-anchor="middle" fill="white" font-size="11" font-weight="bold">Sample F (45)</text>
+      
+      <text x="210" y="12" font-size="11" fill="#2d3748">Fits? → Batch</text>
+      <text x="210" y="26" font-size="11" fill="#2d3748">Too Long? → Buffer</text>
+    </g>
+
+    <!-- 3. BUFFER AREA -->
+    <g transform="translate(25, 220)">
+      <!-- Buffer Container -->
+      <rect x="0" y="0" width="450" height="180" rx="8" fill="#e6fffa" stroke="#38b2ac" stroke-width="2" />
+      
+      <!-- 修复：Buffer Label Badge (使用简单的圆角矩形，不再使用复杂的 path) -->
+      <rect x="330" y="-12" width="110" height="24" rx="4" fill="#38b2ac" />
+      <text x="385" y="4" text-anchor="middle" fill="white" font-size="12" font-weight="bold">Buffer (size=32)</text>
+
+      <!-- Buffer Content -->
+      <g transform="translate(20, 20)">
+        <text x="0" y="20" font-size="13" font-weight="bold" fill="#38b2ac">Held Samples</text>
+        
+        <!-- Samples in Buffer -->
+        <g transform="translate(0, 35)">
+          <rect x="0" y="0" width="300" height="28" rx="4" fill="#ed8936" />
+          <text x="150" y="19" text-anchor="middle" fill="white" font-size="11" font-weight="bold">Large Sample (Big Rock)</text>
+
+          <rect x="310" y="0" width="80" height="28" rx="4" fill="#38b2ac" />
+          <text x="350" y="19" text-anchor="middle" fill="white" font-size="11" font-weight="bold">Small</text>
+
+          <rect x="0" y="35" width="120" height="28" rx="4" fill="#4299e1" />
+          <text x="60" y="54" text-anchor="middle" fill="white" font-size="11" font-weight="bold">Medium</text>
+          
+          <rect x="130" y="35" width="250" height="28" rx="4" fill="#2c5282" />
+          <text x="255" y="54" text-anchor="middle" fill="white" font-size="11" font-weight="bold">Large Sample</text>
+        </g>
+      </g>
+
+      <!-- Big Rocks Footer -->
+      <!-- 修复：使用 mask 或 clip-path 确保底部圆角对其 -->
+      <path d="M 1 125 H 449 V 172 A 7 7 0 0 1 442 179 H 8 A 7 7 0 0 1 1 172 V 125 Z" fill="#234e52" />
+      
+      <!-- Icon -->
+      <circle cx="30" cy="152" r="12" fill="white" fill-opacity="0.2" />
+      <text x="30" y="156" text-anchor="middle" fill="white" font-size="14">★</text>
+      
+      <!-- Text -->
+      <text x="55" y="146" fill="white" font-size="12" font-weight="bold">Big-Rocks-First Strategy</text>
+      <text x="55" y="164" fill="white" font-size="11" opacity="0.9">When starting a NEW batch, pick the largest sample from buffer first.</text>
+    </g>
+
+    <!-- Arrow: Buffer to Gap (Curved) -->
+    <path d="M 175 255 Q 175 160 380 145" fill="none" stroke="#ed8936" stroke-width="2" stroke-dasharray="6,4" marker-end="url(#arrowhead-orange)" />
+
+  </g>
+
+  <!-- Arrow: Worker to Output -->
+  <line x1="840" y1="310" x2="890" y2="310" stroke="#cbd5e0" stroke-width="3" marker-end="url(#arrowhead-blue)" />
+
+
+  <!-- ================= RIGHT COLUMN: OUTPUT ================= -->
+  <g transform="translate(900, 150)">
+    <rect x="0" y="0" width="220" height="320" rx="8" fill="#f7fafc" stroke="#cbd5e0" />
+    <text x="110" y="30" text-anchor="middle" font-weight="bold" fill="#2c5282" font-size="16">Yield Batch</text>
+    <line x1="20" y1="40" x2="200" y2="40" stroke="#cbd5e0" stroke-width="2" />
+
+    <!-- Packed Result -->
+    <g transform="translate(20, 60)">
+      <rect x="0" y="0" width="180" height="40" rx="4" fill="none" stroke="#2c5282" stroke-width="2" />
+      <rect x="2" y="2" width="36" height="36" fill="#2c5282" />
+      <rect x="38" y="2" width="27" height="36" fill="#38b2ac" />
+      <rect x="65" y="2" width="54" height="36" fill="#4299e1" />
+      <rect x="119" y="2" width="45" height="36" fill="#ed8936" />
+      <rect x="164" y="2" width="14" height="36" fill="#38b2ac" />
+    </g>
+    <text x="110" y="120" text-anchor="middle" font-size="11" fill="#718096" font-style="italic">Shape: [batch_size, max_seq_len]</text>
+
+    <!-- Efficiency Gauge -->
+    <g transform="translate(20, 160)">
+      <rect x="0" y="0" width="180" height="100" rx="8" fill="white" filter="url(#shadow)" />
+      <text x="90" y="25" text-anchor="middle" font-size="13" fill="#718096">Packing Efficiency</text>
+      <text x="90" y="55" text-anchor="middle" font-size="28" font-weight="bold" fill="#48bb78">95%</text>
+      
+      <!-- Progress Bar -->
+      <rect x="20" y="70" width="140" height="8" rx="4" fill="#e2e8f0" />
+      <rect x="20" y="70" width="133" height="8" rx="4" fill="#48bb78" />
+      
+      <text x="90" y="92" text-anchor="middle" font-size="11" fill="#718096">Zero Padding Waste</text>
+    </g>
+  </g>
+
+  <!-- ================= BOTTOM: RESUME SECTION ================= -->
+  <g transform="translate(60, 660)">
+    <line x1="0" y1="0" x2="1080" y2="0" stroke="#cbd5e0" stroke-width="2" stroke-dasharray="8,4" />
+    
+    <text x="0" y="40" font-size="20" font-weight="bold" fill="#2c5282">Perfect Resume Support</text>
+    <text x="0" y="65" font-size="14" fill="#718096">Ensures bit-wise identical training resumption by saving complete worker state.</text>
+
+    <!-- Timeline -->
+    <g transform="translate(100, 100)">
+      <!-- Line -->
+      <line x1="0" y1="25" x2="880" y2="25" stroke="#e2e8f0" stroke-width="4" />
+
+      <!-- Node 1: Save -->
+      <g transform="translate(150, 0)">
+        <rect x="0" y="0" width="180" height="50" rx="25" fill="white" stroke="#2c5282" stroke-width="2" filter="url(#shadow)" />
+        <circle cx="25" cy="25" r="14" fill="#2c5282" />
+        <text x="25" y="30" text-anchor="middle" fill="white" font-weight="bold" font-size="18">+</text>
+        <text x="50" y="20" font-weight="bold" fill="#2d3748" font-size="14">Save Checkpoint</text>
+        <text x="50" y="38" fill="#718096" font-size="12">Step N</text>
+      </g>
+
+      <!-- Center Label -->
+      <!-- 修复：添加了白色背景 rect 遮挡住线条 -->
+      <rect x="400" y="15" width="120" height="20" fill="white" />
+      <text x="460" y="30" text-anchor="middle" font-weight="bold" fill="#2d3748" font-size="14">State Snapshot</text>
+
+      <!-- Node 2: Restore -->
+      <g transform="translate(580, 0)">
+        <rect x="0" y="0" width="180" height="50" rx="25" fill="white" stroke="#48bb78" stroke-width="2" filter="url(#shadow)" />
+        <circle cx="25" cy="25" r="14" fill="#48bb78" />
+        <text x="25" y="29" text-anchor="middle" fill="white" font-weight="bold" font-size="16">↻</text>
+        <text x="50" y="20" font-weight="bold" fill="#2d3748" font-size="14">Restore</text>
+        <text x="50" y="38" fill="#718096" font-size="12">Step N+1</text>
+      </g>
+    </g>
+
+    <!-- Tags -->
+    <g transform="translate(250, 180)">
+      <rect x="0" y="0" width="120" height="30" rx="6" fill="#ebf8ff" stroke="#bee3f8" />
+      <text x="60" y="20" text-anchor="middle" fill="#2c5282" font-size="13" font-weight="500">Iterator Indices</text>
+
+      <rect x="140" y="0" width="100" height="30" rx="6" fill="#ebf8ff" stroke="#bee3f8" />
+      <text x="190" y="20" text-anchor="middle" fill="#2c5282" font-size="13" font-weight="500">RNG States</text>
+
+      <rect x="260" y="0" width="160" height="30" rx="6" fill="#ebf8ff" stroke="#bee3f8" />
+      <text x="340" y="20" text-anchor="middle" fill="#2c5282" font-size="13" font-weight="500">Current Batch Content</text>
+
+      <rect x="440" y="0" width="120" height="30" rx="6" fill="#ebf8ff" stroke="#bee3f8" />
+      <text x="500" y="20" text-anchor="middle" fill="#2c5282" font-size="13" font-weight="bold">Buffer Content</text>
+    </g>
+  </g>
+
+</svg>

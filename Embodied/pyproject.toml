@@ -1,0 +1,34 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "locate_anything"
+version = "1.0"
+description = "LocateAnything: Fast and High-Quality Vision-Language Grounding with Parallel Box Decoding"
+readme = "README.md"
+requires-python = ">=3.8"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: Apache Software License",
+]
+
+dependencies = ["transformers==4.57.1", "tokenizers==0.22.0", "sentencepiece==0.2.0", "shortuuid",
+    "accelerate==1.5.2", "peft==0.12.0", "bitsandbytes", "wandb>=0.17.7",
+    "pydantic==2.7.1", "markdown2[all]", "numpy>=1.25,<2", "scikit-learn>=1.2.2",
+    "gradio==3.35.2", "gradio_client==0.2.9", "lmdb",
+    "requests", "httpx==0.24.0", "uvicorn", "fastapi", "streamlit", "streamlit-image-select", 
+    "einops", "einops-exts", "timm>=1.0.11", "deepspeed==0.15.4", "av", "liger_kernel==0.3.1", "filetype", "bitstring",
+    "ebmlite", "triton>=3.1.0", "scipy>=1.10.0", "datasets>=2.21.0",  "dotenv", "decord", "scikit-image", "imagehash", "opencv-python-headless"
+]
+
+[project.urls]
+"Homepage" = "https://nvlabs.github.io/EAGLE/"
+"Bug Tracker" = "https://github.com/NVlabs/EAGLE/issues"
+
+[tool.setuptools.packages.find]
+include = ["eaglevl"]
+exclude = ["tools", "data*", "benchmark*", "docs", "dist*", "playground*", "scripts*", "shell*", "work_dirs*", "pretrained*", "vid_playground*", "wandb*", "vlmeval*", "internel*", "streamlit*"]
+
+[tool.wheel]
+exclude = ["tools", "data*", "benchmark*", "docs", "dist*", "playground*", "scripts*", "shell*", "work_dirs*", "pretrained*", "vid_playground*", "wandb*", "vlmeval*", "internel*", "streamlit*"]

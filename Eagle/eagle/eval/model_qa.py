@@ -1,0 +1,93 @@
+# Copyright 2024 NVIDIA CORPORATION & AFFILIATES
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#      http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+#
+# SPDX-License-Identifier: Apache-2.0
+#
+# Portions of this file are derived from the LLaVA-HR project
+# (https://github.com/luogen1996/LLaVA-HR), licensed under the
+# Apache License, Version 2.0.
+#
+# Modifications © 2024 NVIDIA CORPORATION & AFFILIATES, licensed under
+# the Apache License, Version 2.0.
+#
+# --------------------------------------------------------
+# LLaVA-HR
+# Copyright (c) 2024 Gen Luo
+# Licensed under the Apache License, Version 2.0
+# --------------------------------------------------------
+
+import argparse
+from transformers import AutoTokenizer, AutoModelForCausalLM, StoppingCriteria
+import torch
+import os
+import json
+from tqdm import tqdm
+import shortuuid
+
+from eagle.conversation import default_conversation
+from eagle.utils import disable_torch_init
+
+
+@torch.inference_mode()
+def eval_model(model_name, questions_file, answers_file):
+    # Model
+    disable_torch_init()
+    model_name = os.path.expanduser(model_name)
+    tokenizer = AutoTokenizer.from_pretrained(model_name, use_fast=False)
+    model = AutoModelForCausalLM.from_pretrained(model_name,
+        torch_dtype=torch.float16).cuda()
+
+
+    ques_file = open(os.path.expanduser(questions_file), "r")
+    ans_file = open(os.path.expanduser(answers_file), "w")
+    for i, line in enumerate(tqdm(ques_file)):
+        idx = json.loads(line)["question_id"]
+        qs = json.loads(line)["text"]
+        cat = json.loads(line)["category"]
+        conv = default_conversation.copy()
+        conv.append_message(conv.roles[0], qs)
+        prompt = conv.get_prompt()
+        inputs = tokenizer([prompt])
+        input_ids = torch.as_tensor(inputs.input_ids).cuda()
+        output_ids = model.generate(
+            input_ids,
+            do_sample=True,
+            use_cache=True,
+            temperature=0.7,
+            max_new_tokens=1024,)
+        outputs = tokenizer.batch_decode(output_ids, skip_special_tokens=True)[0]
+        try:
+            index = outputs.index(conv.sep, len(prompt))
+        except ValueError:
+            outputs += conv.sep
+            index = outputs.index(conv.sep, len(prompt))
+
+        outputs = outputs[len(prompt) + len(conv.roles[1]) + 2:index].strip()
+        ans_id = shortuuid.uuid()
+        ans_file.write(json.dumps({"question_id": idx,
+                                   "text": outputs,
+                                   "answer_id": ans_id,
+                                   "model_id": model_name,
+                                   "metadata": {}}) + "\n")
+        ans_file.flush()
+    ans_file.close()
+
+if __name__ == "__main__":
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--model-name", type=str, default="facebook/opt-350m")
+    parser.add_argument("--question-file", type=str, default="tables/question.jsonl")
+    parser.add_argument("--answers-file", type=str, default="answer.jsonl")
+    args = parser.parse_args()
+
+    eval_model(args.model_name, args.question_file, args.answers_file)
