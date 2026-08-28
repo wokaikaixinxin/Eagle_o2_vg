@@ -183,9 +183,10 @@ LAUNCHER=pytorch CUDA_VISIBLE_DEVICES=0 torchrun --nproc_per_node=1 --master_por
 python evaluation/eval_rotated_grounding.py --model /root/autodl-tmp/Eagle_o2_vg/Embodied/work_dirs/vrsbench_lr4e-5_grad_acc16_ep2/ --annotation /root/autodl-tmp/locany_recipe/vrsbench_rotated/vrsbench_rotated_val.jsonl --image-root /root/autodl-tmp/VRSBench/Images_val --output work_dirs/vrsbench_lr4e-5_grad_acc16_ep2/eval_vrsbench_val.jsonl --generation-mode hybrid --iou-type rotated
 ```
 
-| method | model checkPoint | training logs | tensorboard | test result |
-| :----: | :------: | :--: | :-----: | :------: | 
-|vrsbench_lr4e-5_grad_acc16_ep2 | [model checkPoint](https://modelscope.cn/models/wokaikaixinxin/LocateAnything-3B-O2-VG/tree/master/vrsbench_lr4e-5_grad_acc16_ep2) | [training logs](https://modelscope.cn/models/wokaikaixinxin/LocateAnything-3B-O2-VG/resolve/master/vrsbench_lr4e-5_grad_acc16_ep2/training_log.txt) | [tensorboard](https://modelscope.cn/models/wokaikaixinxin/LocateAnything-3B-O2-VG/tree/master/vrsbench_lr4e-5_grad_acc16_ep2/runs) |  [test result](https://modelscope.cn/models/wokaikaixinxin/LocateAnything-3B-O2-VG/tree/master/o2_vg_vlm_test_result_different_mode/vrsbench_lr4e-5_grad_acc16_ep2) |
+vrsbench_lr4e-5_grad_acc16_ep2 
+| model checkPoint | training logs | tensorboard | test result |
+| :------: | :--: | :-----: | :------: | 
+| [model checkPoint](https://modelscope.cn/models/wokaikaixinxin/LocateAnything-3B-O2-VG/tree/master/vrsbench_lr4e-5_grad_acc16_ep2) | [training logs](https://modelscope.cn/models/wokaikaixinxin/LocateAnything-3B-O2-VG/resolve/master/vrsbench_lr4e-5_grad_acc16_ep2/training_log.txt) | [tensorboard](https://modelscope.cn/models/wokaikaixinxin/LocateAnything-3B-O2-VG/tree/master/vrsbench_lr4e-5_grad_acc16_ep2/runs) |  [test result](https://modelscope.cn/models/wokaikaixinxin/LocateAnything-3B-O2-VG/tree/master/o2_vg_vlm_test_result_different_mode/vrsbench_lr4e-5_grad_acc16_ep2) |
 
 
 
@@ -245,10 +246,10 @@ python evaluation/eval_rotated_grounding.py --model /root/autodl-tmp/Eagle_o2_vg
 ```
 
 
-
-| method | model checkPoint | training logs | tensorboard | test result |
-| :----: | :------: | :--: | :-----: | :------: |
-| vrsbench_with_universal_obb_lr4e-5_grad_acc16_ep2 | [model checkPoint](https://modelscope.cn/models/wokaikaixinxin/LocateAnything-3B-O2-VG/tree/master/vrsbench_with_universal_obb_lr4e-5_grad_acc16_ep2) | [training logs](https://modelscope.cn/models/wokaikaixinxin/LocateAnything-3B-O2-VG/file/view/master/vrsbench_with_universal_obb_lr4e-5_grad_acc16_ep2%2Ftraining_log.txt?status=1) | [tensorboard](https://modelscope.cn/models/wokaikaixinxin/LocateAnything-3B-O2-VG/tree/master/vrsbench_with_universal_obb_lr4e-5_grad_acc16_ep2/runs) | [test result](https://modelscope.cn/models/wokaikaixinxin/LocateAnything-3B-O2-VG/tree/master/o2_vg_vlm_test_result_different_mode/vrsbench_with_universal_obb_lr4e-5_grad_acc16_ep2) |
+vrsbench_with_universal_obb_lr4e-5_grad_acc16_ep2
+| model checkPoint | training logs | tensorboard | test result |
+| :------: | :--: | :-----: | :------: |
+| [model checkPoint](https://modelscope.cn/models/wokaikaixinxin/LocateAnything-3B-O2-VG/tree/master/vrsbench_with_universal_obb_lr4e-5_grad_acc16_ep2) | [training logs](https://modelscope.cn/models/wokaikaixinxin/LocateAnything-3B-O2-VG/file/view/master/vrsbench_with_universal_obb_lr4e-5_grad_acc16_ep2%2Ftraining_log.txt?status=1) | [tensorboard](https://modelscope.cn/models/wokaikaixinxin/LocateAnything-3B-O2-VG/tree/master/vrsbench_with_universal_obb_lr4e-5_grad_acc16_ep2/runs) | [test result](https://modelscope.cn/models/wokaikaixinxin/LocateAnything-3B-O2-VG/tree/master/o2_vg_vlm_test_result_different_mode/vrsbench_with_universal_obb_lr4e-5_grad_acc16_ep2) |
 
 
 
@@ -317,9 +318,10 @@ python evaluation/eval_rotated_grounding.py \
   --iou-type rotated
 ```
 
-| method | model checkPoint | training logs | tensorboard | test result |
-| :----: | :------: | :--: | :-----: | :------: |
-| dior_r_rsvg_lr4e-5_grad_acc16_ep2 | [model checkPoint](https://modelscope.cn/models/wokaikaixinxin/LocateAnything-3B-O2-VG/tree/master/dior_r_rsvg_lr4e-5_grad_acc16_ep2) | [training logs](https://modelscope.cn/models/wokaikaixinxin/LocateAnything-3B-O2-VG/file/view/master/dior_r_rsvg_lr4e-5_grad_acc16_ep2%2Ftraining_log.txt?status=1) | [tensorboard](https://modelscope.cn/models/wokaikaixinxin/LocateAnything-3B-O2-VG/tree/master/dior_r_rsvg_lr4e-5_grad_acc16_ep2/runs) | [test result](https://modelscope.cn/models/wokaikaixinxin/LocateAnything-3B-O2-VG/tree/master/o2_vg_vlm_test_result_different_mode/dior_r_rsvg_lr4e-5_grad_acc16_ep2) |
+dior_r_rsvg_lr4e-5_grad_acc16_ep2
+| model checkPoint | training logs | tensorboard | test result |
+| :------: | :--: | :-----: | :------: |
+| [model checkPoint](https://modelscope.cn/models/wokaikaixinxin/LocateAnything-3B-O2-VG/tree/master/dior_r_rsvg_lr4e-5_grad_acc16_ep2) | [training logs](https://modelscope.cn/models/wokaikaixinxin/LocateAnything-3B-O2-VG/file/view/master/dior_r_rsvg_lr4e-5_grad_acc16_ep2%2Ftraining_log.txt?status=1) | [tensorboard](https://modelscope.cn/models/wokaikaixinxin/LocateAnything-3B-O2-VG/tree/master/dior_r_rsvg_lr4e-5_grad_acc16_ep2/runs) | [test result](https://modelscope.cn/models/wokaikaixinxin/LocateAnything-3B-O2-VG/tree/master/o2_vg_vlm_test_result_different_mode/dior_r_rsvg_lr4e-5_grad_acc16_ep2) |
 
 ### Train DIOR-R-RSVG with Universal Oriented Proposals
 
@@ -382,9 +384,11 @@ python evaluation/eval_rotated_grounding.py \
   --iou-type rotated
 ```
 
-| method | model checkPoint | training logs | tensorboard | test result |
-| :----: | :------: | :--: | :-----: | :------: |
-| dior_r_rsvg_with_universal_obb_lr4e-5_grad_acc16_ep2 | [model checkPoint](https://modelscope.cn/models/wokaikaixinxin/LocateAnything-3B-O2-VG/tree/master/dior_r_rsvg_with_universal_obb_lr4e-5_grad_acc16_ep2) | [training logs](https://modelscope.cn/models/wokaikaixinxin/LocateAnything-3B-O2-VG/file/view/master/dior_r_rsvg_with_universal_obb_lr4e-5_grad_acc16_ep2%2Ftraining_log.txt?status=1) | [tensorboard](https://modelscope.cn/models/wokaikaixinxin/LocateAnything-3B-O2-VG/tree/master/dior_r_rsvg_with_universal_obb_lr4e-5_grad_acc16_ep2/runs) | [test result](https://modelscope.cn/models/wokaikaixinxin/LocateAnything-3B-O2-VG/tree/master/o2_vg_vlm_test_result_different_mode/dior_r_rsvg_with_universal_obb_lr4e-5_grad_acc16_ep2) |
+
+dior_r_rsvg_with_universal_obb_lr4e-5_grad_acc16_ep2
+| model checkPoint | training logs | tensorboard | test result |
+| :------: | :--: | :-----: | :------: |
+| [model checkPoint](https://modelscope.cn/models/wokaikaixinxin/LocateAnything-3B-O2-VG/tree/master/dior_r_rsvg_with_universal_obb_lr4e-5_grad_acc16_ep2) | [training logs](https://modelscope.cn/models/wokaikaixinxin/LocateAnything-3B-O2-VG/file/view/master/dior_r_rsvg_with_universal_obb_lr4e-5_grad_acc16_ep2%2Ftraining_log.txt?status=1) | [tensorboard](https://modelscope.cn/models/wokaikaixinxin/LocateAnything-3B-O2-VG/tree/master/dior_r_rsvg_with_universal_obb_lr4e-5_grad_acc16_ep2/runs) | [test result](https://modelscope.cn/models/wokaikaixinxin/LocateAnything-3B-O2-VG/tree/master/o2_vg_vlm_test_result_different_mode/dior_r_rsvg_with_universal_obb_lr4e-5_grad_acc16_ep2) |
 
 
 
