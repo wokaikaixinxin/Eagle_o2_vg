@@ -5,11 +5,54 @@
 </div>
 
 
-## 1.Data
+## 1.Install
 
-### 1.1 Download annotations
+[AutoDL](https://www.autodl.com/home)
+
+GPU:
+
+A single RTX PRO 6000 (96G) * 1
+
+Mirror:
+
+``` shell
+Pytorch / version 2.12.1 / python 3.12 (ubuntu22.04) / CUDA 13.0
+```
+
+1.1 Install torch
+
+```shell
+pip install torch==2.10.0 torchvision==0.25.0 torchaudio==2.10.0 --index-url https://download.pytorch.org/whl/cu130
+```
+
+1.2 Install flash attention
+
+```shell
+pip install flash_attn-2.8.3+cu13torch2.10cxx11abiTRUE-cp312-cp312-linux_x86_64.whl
+```
+
+**Note: magi attention does not support RTX PRO 6000 on 2026.7! Only use flash attention!**
+
+1.3 Install eagle
+
+```shell
+cd /root/autodl-tmp
+git clone https://github.com/wokaikaixinxin/Eagle_o2_vg.git
+cd /root/autodl-tmp/Eagle_o2_vg/Embodied
+pip install -e . -i  https://pypi.tuna.tsinghua.edu.cn/simple
+```
+
+## 2.Data
+
+### 2.1 Download annotations
 
 [locany_recipe](https://modelscope.cn/models/wokaikaixinxin/LocateAnything-3B-O2-VG/tree/master/locany_recipe)
+
+
+```shell
+cd /root/autodl-tmp
+modelscope download --model wokaikaixinxin/LocateAnything-3B-O2-VG --include 'locany_recipe/**' --local_dir ./
+```
 
 ```
 /root/autodl-tmp
@@ -40,19 +83,19 @@
 │   │   ├── avvg_rotated_train_with_universal_obb.jsonl
 ```
 
-### 1.2 Download DIOR-R-RSVG
+### 2.2 Download DIOR-R-RSVG
 
 DIOR-R-RSVG [github repo](https://github.com/wokaikaixinxin/DIOR-R-RSVG)
 
 DIOR-R-RSVG [modelscope]()
 
-### 1.3 Download VRSBench
+### 2.3 Download VRSBench
 
 VRSBench [github repo](https://github.com/lx709/VRSBench)
 
 VRSBench [hugging face](https://huggingface.co/datasets/xiang709/VRSBench)
 
-### 1.4 Download AVVG
+### 2.4 Download AVVG
 
 GeoGround AVVG [github repo](https://github.com/VisionXLab/GeoGround)
 
@@ -80,49 +123,13 @@ python tools/resize_avvg.py
 │   ├── metainfo
 ```
 
-## 2.Install
 
-[AutoDL](https://www.autodl.com/home)
-
-GPU:
-
-A single RTX PRO 6000 (96G) * 1
-
-Mirror:
-
-``` shell
-Pytorch / version 2.12.1 / python 3.12 (ubuntu22.04) / CUDA 13.0
-```
-
-2.1 Install torch
-
-```shell
-pip install torch==2.10.0 torchvision==0.25.0 torchaudio==2.10.0 --index-url https://download.pytorch.org/whl/cu130
-```
-
-2.2 Install flash attention
-
-```shell
-pip install flash_attn-2.8.3+cu13torch2.10cxx11abiTRUE-cp312-cp312-linux_x86_64.whl
-```
-
-**Note: magi attention does not support RTX PRO 6000 on 2026.7! Only use flash attention!**
-
-2.3 Install eagle
-
-```shell
-cd /root/autodl-tmp
-git clone https://github.com/wokaikaixinxin/Eagle_o2_vg.git
-cd /root/autodl-tmp/Eagle_o2_vg/Embodied
-pip install -e . -i  https://pypi.tuna.tsinghua.edu.cn/simple
-```
 
 ## 3.Download LocateAnything-3B
 
 ```shell
 cd /root/autodl-tmp
-export HF_ENDPOINT="https://hf-mirror.com"
-huggingface-cli download nvidia/LocateAnything-3B --local-dir ./
+modelscope download --model wokaikaixinxin/LocateAnything-3B --local_dir ./LocateAnything-3B
 ```
 
 ## 4.VRSBench
