@@ -94,13 +94,13 @@ Mirror:
 Pytorch / version 2.12.1 / python 3.12 (ubuntu22.04) / CUDA 13.0
 ```
 
-Install torch
+2.1 Install torch
 
 ```shell
 pip install torch==2.10.0 torchvision==0.25.0 torchaudio==2.10.0 --index-url https://download.pytorch.org/whl/cu130
 ```
 
-Install flash attention
+2.2 Install flash attention
 
 ```shell
 pip install flash_attn-2.8.3+cu13torch2.10cxx11abiTRUE-cp312-cp312-linux_x86_64.whl
@@ -108,7 +108,7 @@ pip install flash_attn-2.8.3+cu13torch2.10cxx11abiTRUE-cp312-cp312-linux_x86_64.
 
 **Note: magi attention does not support RTX PRO 6000 on 2026.7! Only use flash attention!**
 
-Install eagle
+2.3 Install eagle
 
 ```shell
 cd /root/autodl-tmp
@@ -127,7 +127,7 @@ huggingface-cli download nvidia/LocateAnything-3B --local-dir ./
 
 ## 4.VRSBench
 
-### Train VRSBench without Universal Oriented Proposals
+### 4.1 Train VRSBench without Universal Oriented Proposals
 
 
 ```shell
@@ -177,7 +177,7 @@ LAUNCHER=pytorch CUDA_VISIBLE_DEVICES=0 torchrun --nproc_per_node=1 --master_por
 ```
 
 
-### Test VRSBench without Universal Oriented Proposals
+### 4.2 Test VRSBench without Universal Oriented Proposals
 
 ```shell
 python evaluation/eval_rotated_grounding.py --model /root/autodl-tmp/Eagle_o2_vg/Embodied/work_dirs/vrsbench_lr4e-5_grad_acc16_ep2/ --annotation /root/autodl-tmp/locany_recipe/vrsbench_rotated/vrsbench_rotated_val.jsonl --image-root /root/autodl-tmp/VRSBench/Images_val --output work_dirs/vrsbench_lr4e-5_grad_acc16_ep2/eval_vrsbench_val.jsonl --generation-mode hybrid --iou-type rotated
@@ -190,7 +190,7 @@ vrsbench_lr4e-5_grad_acc16_ep2
 
 
 
-### Train VRSBench with Universal Oriented Proposals
+### 4.3 Train VRSBench with Universal Oriented Proposals
 
 ```shell
 cd /root/autodl-tmp/Eagle_o2_vg/Embodied
@@ -239,7 +239,7 @@ LAUNCHER=pytorch CUDA_VISIBLE_DEVICES=0 torchrun --nproc_per_node=1 --master_por
 ```
 
 
-### Test VRSBench with Universal Oriented Proposals
+### 4.4 Test VRSBench with Universal Oriented Proposals
 
 ```shell
 python evaluation/eval_rotated_grounding.py --model /root/autodl-tmp/Eagle_o2_vg/Embodied/work_dirs/vrsbench_with_universal_obb_lr4e-5_grad_acc16_ep2 --annotation /root/autodl-tmp/locany_recipe/vrsbench_rotated_with_universal_obb/vrsbench_rotated_val_with_universal_obb.jsonl --image-root /root/autodl-tmp/VRSBench/Images_val --output work_dirs/vrsbench_with_universal_obb_lr4e-5_grad_acc16_ep2/eval_vrsbench_val.jsonl --generation-mode hybrid --iou-type rotated
@@ -257,7 +257,7 @@ vrsbench_with_universal_obb_lr4e-5_grad_acc16_ep2
 
 ## 5.DIOR-R-RSVG
 
-### Train DIOR-R-RSVG without Universal Oriented Proposals
+### 5.1 Train DIOR-R-RSVG without Universal Oriented Proposals
 
 ```shell
 cd /root/autodl-tmp/Eagle_o2_vg/Embodied
@@ -306,7 +306,7 @@ LAUNCHER=pytorch CUDA_VISIBLE_DEVICES=0 torchrun --nproc_per_node=1 --master_por
 ```
 
 
-### Test DIOR-R-RSVG without Universal Oriented Proposals
+### 5.2 Test DIOR-R-RSVG without Universal Oriented Proposals
 
 ```shell
 python evaluation/eval_rotated_grounding.py \
@@ -323,7 +323,7 @@ dior_r_rsvg_lr4e-5_grad_acc16_ep2
 | :------: | :--: | :-----: | :------: |
 | [model checkPoint](https://modelscope.cn/models/wokaikaixinxin/LocateAnything-3B-O2-VG/tree/master/dior_r_rsvg_lr4e-5_grad_acc16_ep2) | [training logs](https://modelscope.cn/models/wokaikaixinxin/LocateAnything-3B-O2-VG/file/view/master/dior_r_rsvg_lr4e-5_grad_acc16_ep2%2Ftraining_log.txt?status=1) | [tensorboard](https://modelscope.cn/models/wokaikaixinxin/LocateAnything-3B-O2-VG/tree/master/dior_r_rsvg_lr4e-5_grad_acc16_ep2/runs) | [test result](https://modelscope.cn/models/wokaikaixinxin/LocateAnything-3B-O2-VG/tree/master/o2_vg_vlm_test_result_different_mode/dior_r_rsvg_lr4e-5_grad_acc16_ep2) |
 
-### Train DIOR-R-RSVG with Universal Oriented Proposals
+### 5.3 Train DIOR-R-RSVG with Universal Oriented Proposals
 
 ```shell
 cd /root/autodl-tmp/Eagle_o2_vg/Embodied
@@ -372,7 +372,7 @@ LAUNCHER=pytorch CUDA_VISIBLE_DEVICES=0 torchrun --nproc_per_node=1 --master_por
 ```
 
 
-### Test DIOR-R-RSVG with Universal Oriented Proposals
+### 5.4 Test DIOR-R-RSVG with Universal Oriented Proposals
 
 ```shell
 python evaluation/eval_rotated_grounding.py \
@@ -391,8 +391,9 @@ dior_r_rsvg_with_universal_obb_lr4e-5_grad_acc16_ep2
 | [model checkPoint](https://modelscope.cn/models/wokaikaixinxin/LocateAnything-3B-O2-VG/tree/master/dior_r_rsvg_with_universal_obb_lr4e-5_grad_acc16_ep2) | [training logs](https://modelscope.cn/models/wokaikaixinxin/LocateAnything-3B-O2-VG/file/view/master/dior_r_rsvg_with_universal_obb_lr4e-5_grad_acc16_ep2%2Ftraining_log.txt?status=1) | [tensorboard](https://modelscope.cn/models/wokaikaixinxin/LocateAnything-3B-O2-VG/tree/master/dior_r_rsvg_with_universal_obb_lr4e-5_grad_acc16_ep2/runs) | [test result](https://modelscope.cn/models/wokaikaixinxin/LocateAnything-3B-O2-VG/tree/master/o2_vg_vlm_test_result_different_mode/dior_r_rsvg_with_universal_obb_lr4e-5_grad_acc16_ep2) |
 
 
+## 6. AVVG
 
-### Train AVVG without Universal Oriented Proposals
+### 6.1 Train AVVG without Universal Oriented Proposals
 
 ```shell
 cd /root/autodl-tmp/Eagle_o2_vg/Embodied
@@ -439,7 +440,7 @@ LAUNCHER=pytorch CUDA_VISIBLE_DEVICES=0 torchrun --nproc_per_node=1 --master_por
   2>&1 | tee -a work_dirs/avvg_1024x576_lr4e-5_grad_acc16_ep2/training_log.txt
 ```
 
-### Test AVVG without Universal Oriented Proposals
+### 6.2 Test AVVG without Universal Oriented Proposals
 
 ```shell
 python evaluation/eval_rotated_grounding.py \
@@ -458,7 +459,7 @@ avvg_1024x576_lr4e-5_grad_acc16_ep2
 | [model checkPoint](https://modelscope.cn/models/wokaikaixinxin/LocateAnything-3B-O2-VG/tree/master/avvg_1024x576_lr4e-5_grad_acc16_ep2) | [training logs](https://modelscope.cn/models/wokaikaixinxin/LocateAnything-3B-O2-VG/file/view/master/avvg_1024x576_lr4e-5_grad_acc16_ep2%2Ftraining_log.txt?status=1) | [tensorboard](https://modelscope.cn/models/wokaikaixinxin/LocateAnything-3B-O2-VG/tree/master/avvg_1024x576_lr4e-5_grad_acc16_ep2/runs) | [test result](https://modelscope.cn/models/wokaikaixinxin/LocateAnything-3B-O2-VG/tree/master/o2_vg_vlm_test_result_different_mode/avvg_1024x576_lr4e-5_grad_acc16_ep2) |
 
 
-### Train AVVG with Universal Oriented Proposals
+### 6.3 Train AVVG with Universal Oriented Proposals
 
 
 ```shell
@@ -506,7 +507,7 @@ LAUNCHER=pytorch CUDA_VISIBLE_DEVICES=0 torchrun --nproc_per_node=1 --master_por
   2>&1 | tee -a work_dirs/avvg_1024x576_with_universal_obb_lr4e-5_grad_acc16_ep2/training_log.txt
 ```
 
-### Test AVVG with Universal Oriented Proposals
+### 6.4 Test AVVG with Universal Oriented Proposals
 
 
 ```shell
