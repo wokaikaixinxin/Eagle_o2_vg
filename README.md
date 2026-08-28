@@ -5,9 +5,9 @@
 </div>
 
 
-## Data
+## 1.Data
 
-### 1) Download annotations
+### 1.1 Download annotations
 
 [locany_recipe](https://modelscope.cn/models/wokaikaixinxin/LocateAnything-3B-O2-VG/tree/master/locany_recipe)
 
@@ -40,19 +40,19 @@
 │   │   ├── avvg_rotated_train_with_universal_obb.jsonl
 ```
 
-### 2) Download DIOR-R-RSVG
+### 1.2 Download DIOR-R-RSVG
 
 DIOR-R-RSVG [github repo](https://github.com/wokaikaixinxin/DIOR-R-RSVG)
 
 DIOR-R-RSVG [modelscope]()
 
-### 3) Download VRSBench
+### 1.3 Download VRSBench
 
 VRSBench [github repo](https://github.com/lx709/VRSBench)
 
 VRSBench [hugging face](https://huggingface.co/datasets/xiang709/VRSBench)
 
-### 4) Download AVVG
+### 1.4 Download AVVG
 
 GeoGround AVVG [github repo](https://github.com/VisionXLab/GeoGround)
 
@@ -80,7 +80,7 @@ python tools/resize_avvg.py
 │   ├── metainfo
 ```
 
-## Install
+## 2.Install
 
 [AutoDL](https://www.autodl.com/home)
 
@@ -119,15 +119,15 @@ cd /root/autodl-tmp/Eagle_o2_vg/Embodied
 pip install -e . -i  https://pypi.tuna.tsinghua.edu.cn/simple
 ```
 
-## Download LocateAnything-3B
+## 3.Download LocateAnything-3B
 
 ```shell
-cd cd /root/autodl-tmp
+cd /root/autodl-tmp
 export HF_ENDPOINT="https://hf-mirror.com"
 huggingface-cli download nvidia/LocateAnything-3B --local-dir ./
 ```
 
-## VRSBench
+## 4.VRSBench
 
 ### Train VRSBench without Universal Oriented Proposals
 
@@ -185,13 +185,11 @@ LAUNCHER=pytorch CUDA_VISIBLE_DEVICES=0 torchrun --nproc_per_node=1 --master_por
 python evaluation/eval_rotated_grounding.py --model /root/autodl-tmp/Eagle_o2_vg/Embodied/work_dirs/vrsbench_lr4e-5_grad_acc16_ep2/ --annotation /root/autodl-tmp/locany_recipe/vrsbench_rotated/vrsbench_rotated_val.jsonl --image-root /root/autodl-tmp/VRSBench/Images_val --output work_dirs/vrsbench_lr4e-5_grad_acc16_ep2/eval_vrsbench_val.jsonl --generation-mode hybrid --iou-type rotated
 ```
 
-| method | model checkPoint | training logs | tensorboard | test logs | test result |
-| :----: | :------: | :--: | :-----: | :------: | :------: |
-|vrsbench_lr4e-5_grad_acc16_ep2 | [model checkPoint](https://modelscope.cn/models/wokaikaixinxin/LocateAnything-3B-O2-VG/tree/master/vrsbench_lr4e-5_grad_acc16_ep2) | [training logs](https://modelscope.cn/models/wokaikaixinxin/LocateAnything-3B-O2-VG/resolve/master/vrsbench_lr4e-5_grad_acc16_ep2/training_log.txt) | [tensorboard](https://modelscope.cn/models/wokaikaixinxin/LocateAnything-3B-O2-VG/tree/master/vrsbench_lr4e-5_grad_acc16_ep2/runs) | [test logs]() | [test result]() |
+| method | model checkPoint | training logs | tensorboard | test result |
+| :----: | :------: | :--: | :-----: | :------: | 
+|vrsbench_lr4e-5_grad_acc16_ep2 | [model checkPoint](https://modelscope.cn/models/wokaikaixinxin/LocateAnything-3B-O2-VG/tree/master/vrsbench_lr4e-5_grad_acc16_ep2) | [training logs](https://modelscope.cn/models/wokaikaixinxin/LocateAnything-3B-O2-VG/resolve/master/vrsbench_lr4e-5_grad_acc16_ep2/training_log.txt) | [tensorboard](https://modelscope.cn/models/wokaikaixinxin/LocateAnything-3B-O2-VG/tree/master/vrsbench_lr4e-5_grad_acc16_ep2/runs) |  [test result](https://modelscope.cn/models/wokaikaixinxin/LocateAnything-3B-O2-VG/tree/master/o2_vg_vlm_test_result_different_mode/vrsbench_lr4e-5_grad_acc16_ep2) |
 
-| Method | Backbone | Pr@0.5 | Pr@0.6 | Pr@0.7 | Pr@0.8 | Pr@0.9 | meanIoU | cumIoU |
-| :----: | :------: | :----: | :----: | :----: | :----: | :----: | :----: | :----: |
-|        |          |        |         |       |         |      |         |      |
+
 
 ### Train VRSBench with Universal Oriented Proposals
 
@@ -252,14 +250,7 @@ python evaluation/eval_rotated_grounding.py --model /root/autodl-tmp/Eagle_o2_vg
 
 | method | model checkPoint | training logs | tensorboard | test result |
 | :----: | :------: | :--: | :-----: | :------: |
-|vrsbench_lr4e-5_grad_acc16_ep2 | [model checkPoint]() | [training logs]() | [tensorboard]() | [test result]() |
-
-| Method | Backbone | Pr@0.5 | Pr@0.6 | Pr@0.7 | Pr@0.8 | Pr@0.9 | meanIoU | cumIoU |
-| :----: | :------: | :----: | :----: | :----: | :----: | :----: | :----: | :----: |
-|        |          |        |         |       |         |      |         |      |
-
-
-
+| vrsbench_with_universal_obb_lr4e-5_grad_acc16_ep2 | [model checkPoint](https://modelscope.cn/models/wokaikaixinxin/LocateAnything-3B-O2-VG/tree/master/vrsbench_with_universal_obb_lr4e-5_grad_acc16_ep2) | [training logs](https://modelscope.cn/models/wokaikaixinxin/LocateAnything-3B-O2-VG/file/view/master/vrsbench_with_universal_obb_lr4e-5_grad_acc16_ep2%2Ftraining_log.txt?status=1) | [tensorboard](https://modelscope.cn/models/wokaikaixinxin/LocateAnything-3B-O2-VG/tree/master/vrsbench_with_universal_obb_lr4e-5_grad_acc16_ep2/runs) | [test result](https://modelscope.cn/models/wokaikaixinxin/LocateAnything-3B-O2-VG/tree/master/o2_vg_vlm_test_result_different_mode/vrsbench_with_universal_obb_lr4e-5_grad_acc16_ep2) |
 
 
 
