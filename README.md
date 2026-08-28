@@ -392,23 +392,139 @@ dior_r_rsvg_with_universal_obb_lr4e-5_grad_acc16_ep2
 
 
 
+### Train AVVG without Universal Oriented Proposals
+
+```shell
+cd /root/autodl-tmp/Eagle_o2_vg/Embodied
+
+LAUNCHER=pytorch CUDA_VISIBLE_DEVICES=0 torchrun --nproc_per_node=1 --master_port=29500 \
+  eaglevl/train/locany_finetune_magi_stream.py \
+  --model_name_or_path /root/autodl-tmp/LocateAnything-3B \
+  --meta_path "/root/autodl-tmp/locany_recipe/avvg_1024x576_rotated/avvg_rotated_locany_recipe.json" \
+  --output_dir work_dirs/avvg_1024x576_lr4e-5_grad_acc16_ep2 \
+  --overwrite_output_dir False \
+  --max_steps 300 \
+  --block_size 7 \
+  --box_coord_dim 5 \
+  --attn_implementation sdpa \
+  --causal_attn False \
+  --freeze_llm False \
+  --freeze_backbone False \
+  --freeze_mlp False \
+  --vision_select_layer -1 \
+  --bf16 True \
+  --per_device_train_batch_size 1 \
+  --gradient_accumulation_steps 16 \
+  --learning_rate 4e-5 \
+  --weight_decay 0.01 \
+  --warmup_steps 30 \
+  --lr_scheduler_type "cosine" \
+  --max_grad_norm 1.0 \
+  --save_strategy "steps" \
+  --save_steps 50 \
+  --save_every_n_hours 0 \
+  --save_total_limit 3 \
+  --logging_steps 1 \
+  --dataloader_num_workers 4 \
+  --packing_buffer_size 32 \
+  --max_seq_length 8192 \
+  --max_num_tokens_per_sample 8192 \
+  --max_num_tokens 8192 \
+  --grad_checkpoint True \
+  --group_by_length False \
+  --optim adamw_torch \
+  --report_to "tensorboard" \
+  --mlp_connector_layers 2 \
+  --do_train True \
+  2>&1 | tee -a work_dirs/avvg_1024x576_lr4e-5_grad_acc16_ep2/training_log.txt
+```
+
+### Test AVVG without Universal Oriented Proposals
+
+```shell
+python evaluation/eval_rotated_grounding.py \
+  --model /root/autodl-tmp/Eagle_o2_vg/Embodied/work_dirs/avvg_1024x576_lr4e-5_grad_acc16_ep2 \
+  --annotation /root/autodl-tmp/locany_recipe/avvg_1024x576_rotated/avvg_rotated_test.jsonl \
+  --image-root /root/autodl-tmp/avvg_resized_1024x576/images \
+  --output work_dirs/avvg_1024x576_lr4e-5_grad_acc16_ep2/eval_avvg_1024x576_test.jsonl \
+  --generation-mode hybrid \
+  --iou-type rotated
+```
+
+
+avvg_1024x576_lr4e-5_grad_acc16_ep2
+| model checkPoint | training logs | tensorboard | test result |
+| :------: | :--: | :-----: | :------: |
+| [model checkPoint](https://modelscope.cn/models/wokaikaixinxin/LocateAnything-3B-O2-VG/tree/master/avvg_1024x576_lr4e-5_grad_acc16_ep2) | [training logs](https://modelscope.cn/models/wokaikaixinxin/LocateAnything-3B-O2-VG/file/view/master/avvg_1024x576_lr4e-5_grad_acc16_ep2%2Ftraining_log.txt?status=1) | [tensorboard](https://modelscope.cn/models/wokaikaixinxin/LocateAnything-3B-O2-VG/tree/master/avvg_1024x576_lr4e-5_grad_acc16_ep2/runs) | [test result](https://modelscope.cn/models/wokaikaixinxin/LocateAnything-3B-O2-VG/tree/master/o2_vg_vlm_test_result_different_mode/avvg_1024x576_lr4e-5_grad_acc16_ep2) |
+
+
+### Train AVVG with Universal Oriented Proposals
+
+
+```shell
+cd /root/autodl-tmp/Eagle_o2_vg/Embodied
+
+LAUNCHER=pytorch CUDA_VISIBLE_DEVICES=0 torchrun --nproc_per_node=1 --master_port=29500 \
+  eaglevl/train/locany_finetune_magi_stream.py \
+  --model_name_or_path /root/autodl-tmp/LocateAnything-3B \
+  --meta_path "/root/autodl-tmp/locany_recipe/avvg_rotated_with_universal_obb/avvg_rotated_locany_recipe.json" \
+  --output_dir work_dirs/avvg_1024x576_with_universal_obb_lr4e-5_grad_acc16_ep2 \
+  --overwrite_output_dir False \
+  --max_steps 300 \
+  --block_size 7 \
+  --box_coord_dim 5 \
+  --attn_implementation sdpa \
+  --causal_attn False \
+  --freeze_llm False \
+  --freeze_backbone False \
+  --freeze_mlp False \
+  --vision_select_layer -1 \
+  --bf16 True \
+  --per_device_train_batch_size 1 \
+  --gradient_accumulation_steps 16 \
+  --learning_rate 4e-5 \
+  --weight_decay 0.01 \
+  --warmup_steps 30 \
+  --lr_scheduler_type "cosine" \
+  --max_grad_norm 1.0 \
+  --save_strategy "steps" \
+  --save_steps 50 \
+  --save_every_n_hours 0 \
+  --save_total_limit 3 \
+  --logging_steps 1 \
+  --dataloader_num_workers 4 \
+  --packing_buffer_size 32 \
+  --max_seq_length 8192 \
+  --max_num_tokens_per_sample 8192 \
+  --max_num_tokens 8192 \
+  --grad_checkpoint True \
+  --group_by_length False \
+  --optim adamw_torch \
+  --report_to "tensorboard" \
+  --mlp_connector_layers 2 \
+  --do_train True \
+  2>&1 | tee -a work_dirs/avvg_1024x576_with_universal_obb_lr4e-5_grad_acc16_ep2/training_log.txt
+```
+
+### Test AVVG with Universal Oriented Proposals
+
+
+```shell
+python evaluation/eval_rotated_grounding.py \
+  --model /root/autodl-tmp/Eagle_o2_vg/Embodied/work_dirs/avvg_1024x576_with_universal_obb_lr4e-5_grad_acc16_ep2 \
+  --annotation /root/autodl-tmp/locany_recipe/avvg_rotated_with_universal_obb/avvg_rotated_test_with_universal_obb.jsonl \
+  --image-root /root/autodl-tmp/avvg_resized_1024x576/images \
+  --output work_dirs/avvg_1024x576_with_universal_obb_lr4e-5_grad_acc16_ep2/eval_avvg_1024x576_test.jsonl \
+  --generation-mode hybrid \
+  --iou-type rotated
+```
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+avvg_1024x576_with_universal_obb_lr4e-5_grad_acc16_ep2
+| model checkPoint | training logs | tensorboard | test result |
+| :------: | :--: | :-----: | :------: |
+| [model checkPoint](https://modelscope.cn/models/wokaikaixinxin/LocateAnything-3B-O2-VG/tree/master/avvg_1024x576_with_universal_obb_lr4e-5_grad_acc16_ep2) | [training logs](https://modelscope.cn/models/wokaikaixinxin/LocateAnything-3B-O2-VG/file/view/master/avvg_1024x576_with_universal_obb_lr4e-5_grad_acc16_ep2%2Ftraining_log.txt?status=1) | [tensorboard](https://modelscope.cn/models/wokaikaixinxin/LocateAnything-3B-O2-VG/tree/master/avvg_1024x576_with_universal_obb_lr4e-5_grad_acc16_ep2/runs) | [test result](https://modelscope.cn/models/wokaikaixinxin/LocateAnything-3B-O2-VG/tree/master/o2_vg_vlm_test_result_different_mode/avvg_1024x576_with_universal_obb_lr4e-5_grad_acc16_ep2) |
 
 
 ## Citation
