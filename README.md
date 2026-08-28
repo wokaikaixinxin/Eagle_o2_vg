@@ -401,58 +401,10 @@ python evaluation/eval_rotated_grounding.py \
 
 
 
-| method | model checkPoint | training logs | tensorboard | test result |
-| :----: | :------: | :--: | :-----: | :------: |
-|vrsbench_lr4e-5_grad_acc16_ep2 | [model checkPoint]() | [training logs]() | [tensorboard]() | [test result]() |
-
-| Method | Backbone | Pr@0.5 | Pr@0.6 | Pr@0.7 | Pr@0.8 | Pr@0.9 | meanIoU | cumIoU |
-| :----: | :------: | :----: | :----: | :----: | :----: | :----: | :----: | :----: |
-|        |          |        |         |       |         |      |         |      |
 
 
 
 
-
-
-
-
-
-
-
-
-
-
-| method | model checkPoint | training logs | tensorboard | test result |
-| :----: | :------: | :--: | :-----: | :------: |
-|vrsbench_lr4e-5_grad_acc16_ep2 | [model checkPoint]() | [training logs]() | [tensorboard]() | [test result]() |
-
-| Method | Backbone | Pr@0.5 | Pr@0.6 | Pr@0.7 | Pr@0.8 | Pr@0.9 | meanIoU | cumIoU |
-| :----: | :------: | :----: | :----: | :----: | :----: | :----: | :----: | :----: |
-|        |          |        |         |       |         |      |         |      |
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-| method | model checkPoint | training logs | tensorboard | test result |
-| :----: | :------: | :--: | :-----: | :------: |
-|vrsbench_lr4e-5_grad_acc16_ep2 | [model checkPoint]() | [training logs]() | [tensorboard]() | [test result]() |
-
-| Method | Backbone | Pr@0.5 | Pr@0.6 | Pr@0.7 | Pr@0.8 | Pr@0.9 | meanIoU | cumIoU |
-| :----: | :------: | :----: | :----: | :----: | :----: | :----: | :----: | :----: |
-|        |          |        |         |       |         |      |         |      |
 
 
 ## Citation
