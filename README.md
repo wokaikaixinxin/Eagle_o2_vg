@@ -1,6 +1,6 @@
 <div align="center">
 
-#  Oriented Object Visual Grounding in Remote Sensing Images
+# A Unified Framework and Dataset for Oriented Object Visual Grounding in Remote Sensing -- O2-VG-VLM
 
 </div>
 
@@ -9,9 +9,7 @@
 
 [AutoDL](https://www.autodl.com/home)
 
-GPU:
-
-A single RTX PRO 6000 (96G) * 1
+GPU: A single RTX PRO 6000 (96G) * 1
 
 Mirror:
 
@@ -94,6 +92,7 @@ DIOR-R-RSVG [modelscope]()
 VRSBench [github repo](https://github.com/lx709/VRSBench)
 
 VRSBench [hugging face](https://huggingface.co/datasets/xiang709/VRSBench)
+
 
 ### 2.4 Download AVVG
 
@@ -247,6 +246,10 @@ LAUNCHER=pytorch CUDA_VISIBLE_DEVICES=0 torchrun --nproc_per_node=1 --master_por
 
 
 ### 4.4 Test VRSBench with Universal Oriented Proposals
+
+```shell
+modelscope download --model wokaikaixinxin/LocateAnything-3B-O2-VG --include 'vrsbench_with_universal_obb_lr4e-5_grad_acc16_ep2/**' --local_dir /root/autodl-tmp/Eagle_o2_vg/Embodied/work_dirs
+```
 
 ```shell
 python evaluation/eval_rotated_grounding.py --model /root/autodl-tmp/Eagle_o2_vg/Embodied/work_dirs/vrsbench_with_universal_obb_lr4e-5_grad_acc16_ep2 --annotation /root/autodl-tmp/locany_recipe/vrsbench_rotated_with_universal_obb/vrsbench_rotated_val_with_universal_obb.jsonl --image-root /root/autodl-tmp/VRSBench/Images_val --output work_dirs/vrsbench_with_universal_obb_lr4e-5_grad_acc16_ep2/eval_vrsbench_val.jsonl --generation-mode hybrid --iou-type rotated
