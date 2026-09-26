@@ -557,9 +557,11 @@ avvg_1024x576_with_universal_obb_lr4e-5_grad_acc16_ep2
 
 ## Acknowledgements
 
-The **first** real-time oriented object detection transformer: 
+1) The **first** real-time oriented object detection transformer: 
 
 Real-Time Oriented Object Detection Transformer in Remote Sensing Images
+
+[O2-RTDETR github](https://github.com/wokaikaixinxin/ai4rs/blob/main/projects/rotated_rtdetr/README.md)
 
 ```
 @ARTICLE{11424629,
@@ -574,13 +576,16 @@ Real-Time Oriented Object Detection Transformer in Remote Sensing Images
   doi={10.1109/TGRS.2026.3671683}}
 ```
 
-[AI4RS Github](https://github.com/wokaikaixinxin/ai4rs)
+2) [AI4RS Github](https://github.com/wokaikaixinxin/ai4rs)
 
 ```
 https://github.com/wokaikaixinxin/ai4rs
 ```
 
-LocateAnything
+3) LocateAnything
+
+[LocateAnything github](https://github.com/NVlabs/Eagle)
+
 ```
 @inproceedings{wang2026locateanything,
   title={Locateanything: Fast and high-quality vision-language grounding with parallel box decoding},
