@@ -560,7 +560,15 @@ avvg_1024x576_with_universal_obb_lr4e-5_grad_acc16_ep2
 
 ## Citation
 
-
+```
+@article{ding2026unified,
+  title={A Unified Framework and Dataset for Oriented Object Visual Grounding in Remote Sensing},
+  author={Ding, Zeyu and Zhou, Yong and Zhao, Jiaqi and Du, Wen-Liang and
+          Li, Xixi and Zhu, Hancheng and Yao, Rui and El Saddik, Abdulmotaleb},
+  journal={arXiv preprint arXiv:2609.28230},
+  year={2026}
+}
+```
 
 ## Acknowledgements
 
