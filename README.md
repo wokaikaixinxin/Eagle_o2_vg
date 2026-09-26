@@ -4,6 +4,19 @@
 
 </div>
 
+## Abstract
+
+Visual grounding in remote sensing images aims to locate objects described by referring expressions. Most existing methods predict horizontal bounding boxes, which are often inaccurate for objects with arbitrary orientations. To address this limitation, we introduce O2-VG, a family of models for oriented object visual grounding with three complementary designs. Specifically, O2-VG-Trans is a cross-modality transformer for oriented object visual grounding. It establishes a strong discriminative foundation for the model family. Building upon it, O2-VG-Uni predicts universal oriented proposals for possible foreground objects without specific text prompts. It also supports object retrieval through cached proposal embeddings. Using these universal oriented proposals as input prompts, O2-VG-VLM is an autoregressive vision-language model. It generates oriented box token blocks in parallel through multi-token prediction. In addition, we construct DIOR-R-RSVG, a dataset for oriented object visual grounding in remote sensing images. It provides image, expression, and oriented box triplets for training and evaluation. Together, the O2-VG family provides a flexible framework that spans discriminative transformers and generative vision-language models. It achieves superior performance across multiple benchmarks.
+
+
+
+<div align=center>
+<img src='./asset/overview.png' width="90%"/>
+</div>
+
+<div align=center>
+<img src='./asset/o2_vg_vlm.png' width="90%"/>
+</div>
 
 ## 1.Install
 
@@ -542,4 +555,44 @@ avvg_1024x576_with_universal_obb_lr4e-5_grad_acc16_ep2
 
 
 
+## Acknowledgements
 
+The first real-time oriented object detection transformer: 
+Real-Time Oriented Object Detection Transformer in Remote Sensing Images
+
+```
+@ARTICLE{11424629,
+  author={Ding, Zeyu and Zhou, Yong and Zhao, Jiaqi and Du, Wen-Liang and Li, Xixi and Yao, Rui and Saddik, Abdulmotaleb El},
+  journal={IEEE Transactions on Geoscience and Remote Sensing}, 
+  title={Real-Time Oriented Object Detection Transformer in Remote Sensing Images}, 
+  year={2026},
+  volume={64},
+  number={5613014},
+  pages={1-14},
+  keywords={Real-time systems;Transformers;Detectors;Remote sensing;Costs;Training;Accuracy;YOLO;Uncertainty;Noise reduction;Detection transformer (DETR);oriented object detection;real-time detector;remote sensing},
+  doi={10.1109/TGRS.2026.3671683}}
+```
+
+[AI4RS Github](https://github.com/wokaikaixinxin/ai4rs)
+
+```
+https://github.com/wokaikaixinxin/ai4rs
+```
+
+LocateAnything
+```
+@inproceedings{wang2026locateanything,
+  title={Locateanything: Fast and high-quality vision-language grounding with parallel box decoding},
+  author={Wang, Shihao and Liu, Shilong and Kuang, Yuanguo and Wei, Xinyu and Liu, Yangzhou and Li, Zhiqi and Man, Yunze and Chen, Guo and Tao, Andrew and Liu, Guilin and others},
+  booktitle={European Conference on Computer Vision},
+  pages={336--357},
+  year={2026},
+  organization={Springer}
+}
+```
+
+
+
+<div align=center>
+<img src='./asset/teaser.png' width="60%"/>
+</div>
