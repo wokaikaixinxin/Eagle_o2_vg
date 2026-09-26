@@ -557,7 +557,8 @@ avvg_1024x576_with_universal_obb_lr4e-5_grad_acc16_ep2
 
 ## Acknowledgements
 
-The first real-time oriented object detection transformer: 
+The **first** real-time oriented object detection transformer: 
+
 Real-Time Oriented Object Detection Transformer in Remote Sensing Images
 
 ```
@@ -594,5 +595,5 @@ LocateAnything
 
 
 <div align=center>
-<img src='./asset/teaser.png' width="60%"/>
+<img src='./asset/teaser.png' width="50%"/>
 </div>
